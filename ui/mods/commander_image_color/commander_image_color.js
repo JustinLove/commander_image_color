@@ -127,9 +127,8 @@
   function hueReplace(from, to, primary, secondary) {
     primary = hslFromRgb(primary[0]/255, primary[1]/255, primary[2]/255)
     secondary = hslFromRgb(secondary[0]/255, secondary[1]/255, secondary[2]/255)
+
     var canvas = document.createElement("canvas");
-    //canvas.width = from.naturalWidth
-    //canvas.height = from.naturalHeight
     canvas.width = from.offsetWidth
     canvas.height = from.offsetHeight
 
@@ -141,7 +140,6 @@
 
     var r, g, b
     var hsl, rgb
-    var hues = {}
     for(var i = 0, len = data.length;i < len;i += 4) {
       r = data[i]/255
       g = data[i+1]/255
@@ -149,29 +147,20 @@
       // alpha channel (p+3) is ignored
 
       hsl = hslFromRgb(r, g, b)
-      if (hsl.h > 0.50 && hsl.h < 0.70) {
-        hues[hsl.h] = (hues[hsl.h] || 0) + 1
-        if (i % 1000 == 0) {
-          console.log('primary', r*255, g*255, b*255, hsl)
-        }
+      if (hsl.h > 0.40 && hsl.h < 0.70) {
         hsl.h = primary.h
         if (hsl.s > 0.1) {
           hsl.s = primary.s
+          hsl.l = primary.l*Math.sqrt(hsl.l) + (1-primary.l)*Math.pow(hsl.l, 2)
         }
       } else if (hsl.h > 0.05 && hsl.h < 0.18) {
-        hues[hsl.h] = (hues[hsl.h] || 0) + 1
-        if (i % 1000 == 0) {
-          console.log('secondary', r*255, g*255, b*255, hsl)
-        }
         hsl.h = secondary.h
-        if (hsl.s > 0.1) {
+        if (hsl.s > 0.2) {
           hsl.s = secondary.s
+          hsl.l = primary.l*Math.sqrt(hsl.l) + (1-primary.l)*Math.pow(hsl.l, 2)
         }
       }
       rgb = rgbFromHsl(hsl.h, hsl.s, hsl.l)
-      if (i % 1000 == 0) {
-        //console.log(r, g, b, hsl, rgb)
-      }
 
       data[i] = rgb.r*255
       data[i+1] = rgb.g*255
@@ -184,7 +173,6 @@
     ctx.putImageData(map,0,0);
 
     to.src = canvas.toDataURL();
-    console.log(hues)
   }
 
   var baseBlue = [58, 119, 174]
@@ -196,6 +184,7 @@
   $commander.after($clone)
   var colorize = function() {
     var main = colors[colorNames[Math.floor(Math.random() * 11)]]
+    //var main = colors['BLACK']
     var primary = parseRgb(main.colour)
     var choices = main.secondary_colour
     var secondary = parseRgb(colors[choices[Math.floor(Math.random() * choices.length)]].colour)
