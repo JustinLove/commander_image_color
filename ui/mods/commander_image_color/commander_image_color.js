@@ -180,8 +180,8 @@
 
   var $commander = $('[data-bind="visible: true, attr: {src: commanderImg}"]')
   var $clone = $commander.clone()
-  $commander.hide()
   $commander.after($clone)
+  $clone.fadeOut()
   var colorize = function() {
     var main = colors[colorNames[Math.floor(Math.random() * 11)]]
     //var main = colors['BLACK']
@@ -197,6 +197,7 @@
       ,
       secondary
     );
+    $clone.fadeIn(2000)
     //setTimeout(colorize, 1000)
   }
   $commander.on('load', colorize)
