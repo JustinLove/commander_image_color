@@ -190,7 +190,7 @@
     var secondary = parseRgb(colors[choices[Math.floor(Math.random() * choices.length)]].colour)
 
     $commander.off('load', colorize)
-    var canvas = hueReplace(
+    hueReplace(
       $commander[0],
       $clone[0],
       primary
@@ -201,6 +201,32 @@
   }
   $commander.on('load', colorize)
 
-  window.rgbFromHsl = rgbFromHsl
-  window.hslFromRgb = hslFromRgb
+  setTimeout(function() {
+    $('.commander img').each(function() {
+      console.log(this, arguments)
+      var $com = $(this)
+      //var $clone = $com.clone()
+      //$com.hide()
+      //$com.after($clone)
+      var colorize = function() {
+        var main = colors[colorNames[Math.floor(Math.random() * 11)]]
+        //var main = colors['BLACK']
+        var primary = parseRgb(main.colour)
+        var choices = main.secondary_colour
+        var secondary = parseRgb(colors[choices[Math.floor(Math.random() * choices.length)]].colour)
+
+        console.log($com, main, primary, choices, secondary)
+        hueReplace(
+          $com[0],
+          $com[0],
+          primary
+          ,
+          secondary
+        );
+        //setTimeout(colorize, 1000)
+      }
+      //$com.on('load', colorize)
+      colorize()
+    })
+  }, 1000)
 })()
