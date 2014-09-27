@@ -124,17 +124,17 @@
   }
 
 
-  function hueReplace(el, primary, secondary) {
+  function hueReplace(from, to, primary, secondary) {
     primary = hslFromRgb(primary[0]/255, primary[1]/255, primary[2]/255)
     secondary = hslFromRgb(secondary[0]/255, secondary[1]/255, secondary[2]/255)
     var canvas = document.createElement("canvas");
-    //canvas.width = el.naturalWidth
-    //canvas.height = el.naturalHeight
-    canvas.width = el.offsetWidth
-    canvas.height = el.offsetHeight
+    //canvas.width = from.naturalWidth
+    //canvas.height = from.naturalHeight
+    canvas.width = from.offsetWidth
+    canvas.height = from.offsetHeight
 
     var ctx = canvas.getContext("2d");
-    ctx.drawImage(el, 0, 0, canvas.width, canvas.height);
+    ctx.drawImage(from, 0, 0, canvas.width, canvas.height);
 
     var map = ctx.getImageData(0, 0, canvas.width, canvas.height)
     var data = map.data;
@@ -183,7 +183,7 @@
 
     ctx.putImageData(map,0,0);
 
-    el.src = canvas.toDataURL();
+    to.src = canvas.toDataURL();
     console.log(hues)
   }
 
@@ -191,6 +191,9 @@
   var baseYellow = [255, 200, 2]
 
   var $commander = $('[data-bind="visible: true, attr: {src: commanderImg}"]')
+  var $clone = $commander.clone()
+  $commander.hide()
+  $commander.after($clone)
   var colorize = function() {
     var main = colors[colorNames[Math.floor(Math.random() * 11)]]
     var primary = parseRgb(main.colour)
@@ -198,8 +201,9 @@
     var secondary = parseRgb(colors[choices[Math.floor(Math.random() * choices.length)]].colour)
 
     $commander.off('load', colorize)
-    hueReplace(
+    var canvas = hueReplace(
       $commander[0],
+      $clone[0],
       primary
       ,
       secondary
