@@ -1,0 +1,20 @@
+{
+  "author": "wondible",
+  "build": "72332",
+  "category": ["in-game", "ui"],
+  "context": "client",
+  "date": "2014/09/27",
+  "description": "The best PA mod ever.",
+  "display_name": "Commander Image Color",
+  "forum": null,
+  "identifier": "com.wondible.pa.commander_image_color",
+  "priority": 100,
+  "scenes": {
+    "start": [
+      "coui://ui/mods/commander_image_color/commander_image_color.js"
+    ]
+  },
+  "signature": "not yet implemented",
+  "version": "0.1.0"
+}
+
