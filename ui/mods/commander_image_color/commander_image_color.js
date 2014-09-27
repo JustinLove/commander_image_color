@@ -201,32 +201,30 @@
   }
   $commander.on('load', colorize)
 
-  setTimeout(function() {
-    $('.commander img').each(function() {
-      console.log(this, arguments)
-      var $com = $(this)
-      //var $clone = $com.clone()
-      //$com.hide()
-      //$com.after($clone)
-      var colorize = function() {
-        var main = colors[colorNames[Math.floor(Math.random() * 11)]]
-        //var main = colors['BLACK']
-        var primary = parseRgb(main.colour)
-        var choices = main.secondary_colour
-        var secondary = parseRgb(colors[choices[Math.floor(Math.random() * choices.length)]].colour)
+  var playerColors = ko.computed(function() {
+    var nested = model.teams().map(function(team) {
+      return team.players().map(function(player) {
+        return parseRgb(player.color())
+      })
+    })
+    return _.flatten(nested, true)
+  })
 
-        console.log($com, main, primary, choices, secondary)
+  var colorCinematic = function() {
+    $('.commander img').each(function(i) {
+      var $com = $(this)
+      var colorize = function() {
         hueReplace(
           $com[0],
           $com[0],
-          primary
+          playerColors()[i]
           ,
-          secondary
+          [127, 127, 127]
         );
-        //setTimeout(colorize, 1000)
       }
-      //$com.on('load', colorize)
       colorize()
     })
-  }, 1000)
+  }
+
+  setTimeout(colorCinematic, 1000)
 })()
