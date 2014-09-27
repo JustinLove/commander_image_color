@@ -201,14 +201,16 @@
   }
   $commander.on('load', colorize)
 
-  var playerColors = ko.computed(function() {
-    var nested = model.teams().map(function(team) {
-      return team.players().map(function(player) {
-        return parseRgb(player.color())
+  if (model.teams) {
+    var playerColors = ko.computed(function() {
+      var nested = model.teams().map(function(team) {
+        return team.players().map(function(player) {
+          return parseRgb(player.color())
+        })
       })
+      return _.flatten(nested, true)
     })
-    return _.flatten(nested, true)
-  })
+  }
 
   var colorCinematic = function() {
     $('.commander img').each(function(i) {
