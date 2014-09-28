@@ -13,6 +13,9 @@
     "start": [
       "coui://ui/mods/commander_image_color/commander_image_color.js"
     ],
+    "new_game": [
+      "coui://ui/mods/commander_image_color/new_game.js"
+    ],
     "new_game_cinematic": [
       "coui://ui/mods/commander_image_color/commander_image_color.js"
     ]

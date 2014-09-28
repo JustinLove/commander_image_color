@@ -202,17 +202,6 @@
   }
   $commander.on('load', colorize)
 
-  if (model.teams) {
-    var playerColors = ko.computed(function() {
-      var nested = model.teams().map(function(team) {
-        return team.players().map(function(player) {
-          return parseRgb(player.color())
-        })
-      })
-      return _.flatten(nested, true)
-    })
-  }
-
   var colorCinematic = function() {
     $('.commander img').each(function(i) {
       var $com = $(this)
@@ -222,12 +211,34 @@
           $com[0],
           playerColors()[i]
           ,
-          [127, 127, 127]
+          secondaryColors()[i] || [127, 127, 127]
         );
       }
       colorize()
     })
   }
 
-  setTimeout(colorCinematic, 1000)
+  var secondaryColors = ko.observable([])
+  var querySecondary = function() {
+    api.Panel.query(api.Panel.parentId, 'panel.invoke', ['secondaryColors'])
+      .then(function(colors) {
+        secondaryColors(colors.map(parseRgb))
+      })
+  }
+
+  if (model.teams) {
+    var playerColors = ko.computed(function() {
+      var nested = model.teams().map(function(team) {
+        return team.players().map(function(player) {
+          return parseRgb(player.color())
+        })
+      })
+      return _.flatten(nested, true)
+    })
+    playerColors.subscribe(querySecondary)
+
+    model.animate.subscribe(function() {
+      setTimeout(colorCinematic, 1000)
+    })
+  }
 })()
