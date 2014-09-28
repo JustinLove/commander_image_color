@@ -124,7 +124,7 @@
   }
 
 
-  function hueReplace(from, to, primary, secondary) {
+  function replaceTeamColors(from, to, primary, secondary) {
     primary = hslFromRgb(primary[0]/255, primary[1]/255, primary[2]/255)
     secondary = hslFromRgb(secondary[0]/255, secondary[1]/255, secondary[2]/255)
 
@@ -175,70 +175,10 @@
     to.src = canvas.toDataURL();
   }
 
-  var baseBlue = [58, 119, 174]
-  var baseYellow = [255, 200, 2]
-
-  var $commander = $('[data-bind="visible: true, attr: {src: commanderImg}"]')
-  var $clone = $commander.clone()
-  $commander.after($clone)
-  $clone.fadeOut()
-  var colorize = function() {
-    var main = colors[colorNames[Math.floor(Math.random() * 11)]]
-    //var main = colors['BLACK']
-    var primary = parseRgb(main.colour)
-    var choices = main.secondary_colour
-    var secondary = parseRgb(colors[choices[Math.floor(Math.random() * choices.length)]].colour)
-
-    $commander.off('load', colorize)
-    hueReplace(
-      $commander[0],
-      $clone[0],
-      primary
-      ,
-      secondary
-    );
-    $clone.fadeIn(2000)
-    //setTimeout(colorize, 1000)
-  }
-  $commander.on('load', colorize)
-
-  var colorCinematic = function() {
-    $('.commander img').each(function(i) {
-      var $com = $(this)
-      var colorize = function() {
-        hueReplace(
-          $com[0],
-          $com[0],
-          playerColors()[i]
-          ,
-          secondaryColors()[i] || [127, 127, 127]
-        );
-      }
-      setTimeout(colorize, 0)
-    })
-  }
-
-  var secondaryColors = ko.observable([])
-  var querySecondary = function() {
-    api.Panel.query(api.Panel.parentId, 'panel.invoke', ['secondaryColors'])
-      .then(function(colors) {
-        secondaryColors(colors.map(parseRgb))
-      })
-  }
-
-  if (model.teams) {
-    var playerColors = ko.computed(function() {
-      var nested = model.teams().map(function(team) {
-        return team.players().map(function(player) {
-          return parseRgb(player.color())
-        })
-      })
-      return _.flatten(nested, true)
-    })
-    playerColors.subscribe(querySecondary)
-
-    model.animate.subscribe(function() {
-      setTimeout(colorCinematic, 500)
-    })
+  window.commander_image_color = {
+    colors: colors,
+    colorNames: colorNames,
+    parseRgb: parseRgb,
+    replaceTeamColors: replaceTeamColors
   }
 })()

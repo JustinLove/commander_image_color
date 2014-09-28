@@ -1,23 +1,25 @@
 {
   "author": "wondible",
   "build": "72332",
-  "category": ["in-game", "ui"],
+  "category": ["ui"],
   "context": "client",
-  "date": "2014/09/27",
-  "description": "The best PA mod ever.",
+  "date": "2014/09/28",
+  "description": "Set commander team colors on loading cinematic, and random colors on start screen.",
   "display_name": "Commander Image Color",
-  "forum": null,
+  "forum": "https://forums.uberent.com/threads/recoloring-static-images.64585/",
   "identifier": "com.wondible.pa.commander_image_color",
   "priority": 100,
   "scenes": {
     "start": [
-      "coui://ui/mods/commander_image_color/commander_image_color.js"
+      "coui://ui/mods/commander_image_color/commander_image_color.js",
+      "coui://ui/mods/commander_image_color/start.js"
     ],
     "new_game": [
       "coui://ui/mods/commander_image_color/new_game.js"
     ],
     "new_game_cinematic": [
-      "coui://ui/mods/commander_image_color/commander_image_color.js"
+      "coui://ui/mods/commander_image_color/commander_image_color.js",
+      "coui://ui/mods/commander_image_color/new_game_cinematic.js"
     ]
   },
   "signature": "not yet implemented",
