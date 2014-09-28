@@ -214,7 +214,7 @@
           secondaryColors()[i] || [127, 127, 127]
         );
       }
-      colorize()
+      setTimeout(colorize, 0)
     })
   }
 
@@ -238,7 +238,7 @@
     playerColors.subscribe(querySecondary)
 
     model.animate.subscribe(function() {
-      setTimeout(colorCinematic, 1000)
+      setTimeout(colorCinematic, 500)
     })
   }
 })()
