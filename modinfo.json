@@ -3,10 +3,10 @@
   "build": "72332",
   "category": ["ui"],
   "context": "client",
-  "date": "2014/09/28",
+  "date": "2014/09/29",
   "description": "Set commander team colors on loading cinematic, and random colors on start screen.",
   "display_name": "Commander Image Color",
-  "forum": "https://forums.uberent.com/threads/recoloring-static-images.64585/",
+  "forum": "https://forums.uberent.com/threads/rel-commander-image-color.64640/",
   "identifier": "com.wondible.pa.commander_image_color",
   "priority": 100,
   "scenes": {
@@ -23,6 +23,6 @@
     ]
   },
   "signature": "not yet implemented",
-  "version": "0.1.0"
+  "version": "1.0.0"
 }
 
