@@ -1,9 +1,9 @@
 {
   "author": "wondible",
-  "build": "72332",
+  "build": "75817",
   "category": ["ui"],
   "context": "client",
-  "date": "2014/09/29",
+  "date": "2014/12/07",
   "description": "Set commander team colors on loading cinematic, and random colors on start screen.",
   "display_name": "Commander Image Color",
   "forum": "https://forums.uberent.com/threads/rel-commander-image-color.64640/",
@@ -23,6 +23,6 @@
     ]
   },
   "signature": "not yet implemented",
-  "version": "1.0.0"
+  "version": "1.0.1"
 }
 

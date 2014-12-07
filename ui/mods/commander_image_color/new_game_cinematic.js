@@ -19,7 +19,7 @@
 
   var secondaryColors = ko.observable([])
   var querySecondary = function() {
-    api.Panel.query(api.Panel.parentId, 'panel.invoke', ['secondaryColors'])
+    api.Panel.query(api.Panel.parentId, 'panel.invoke', ['commanderImageColorSecondaryColors'])
       .then(function(colors) {
         secondaryColors(colors.map(cic.parseRgb))
       })
