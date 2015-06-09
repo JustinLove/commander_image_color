@@ -5,11 +5,11 @@
   var baseYellow = [255, 200, 2]
 
   var colorize = function() {
-    var main = cic.colors[cic.colorNames[Math.floor(Math.random() * 11)]]
-    //var main = cic.colors['BLACK']
-    var primary = cic.parseRgb(main.colour)
-    var choices = main.secondary_colour
-    var secondary = cic.parseRgb(cic.colors[choices[Math.floor(Math.random() * choices.length)]].colour)
+    var primaryChoice = cic.colorNames[Math.floor(Math.random() * 11)]
+    //var primaryChoice = 'BLACK'
+    var primary = cic.parseRgb(cic.colors[primaryChoice].colour)
+    var secondaryChoice = cic.colorNames[Math.floor(Math.random() * 11)]
+    var secondary = cic.parseRgb(cic.colors[secondaryChoice].colour)
 
     $commander.off('load', colorize)
     cic.replaceTeamColors(
