@@ -23,8 +23,16 @@
     //setTimeout(colorize, 1000)
   }
 
-  var $commander = $('[data-bind="visible: true, attr: {src: commanderImg}"]')
+  var $commander = $('#background_commander')
+  var offset = $commander.offset()
   var $clone = $commander.clone()
+    .attr('id', 'background_commander_clone')
+    .attr('data-bind', '')
+    .css({
+      width: '50%',
+      //position: 'absolute', 
+      'margin-left': '-50%',
+    })
   $commander.after($clone)
   $clone.fadeOut()
 
