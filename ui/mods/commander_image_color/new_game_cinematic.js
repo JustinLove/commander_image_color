@@ -31,7 +31,7 @@
         return cic.parseRgb(player.color())
       })
     })
-    return _.flatten(nested, true)
+    return _.flatten(nested, !_.flattenDeep)
   })
 
   playerColors.subscribe(querySecondary)
