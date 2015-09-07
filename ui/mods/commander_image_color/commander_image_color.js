@@ -125,6 +125,8 @@
 
 
   function replaceTeamColors(from, to, primary, secondary) {
+    if (from.offsetWidth < 1 || from.offsetHeight < 1) return
+
     primary = hslFromRgb(primary[0]/255, primary[1]/255, primary[2]/255)
     secondary = hslFromRgb(secondary[0]/255, secondary[1]/255, secondary[2]/255)
 

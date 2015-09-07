@@ -1,3 +1,7 @@
+## 1.1.1
+
+- Bail if the source image has zero size (e.g. titans mode)
+
 ## 1.1.0
 
 - Use full color choice for start screen secondary
